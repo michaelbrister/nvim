@@ -299,6 +299,16 @@ require('telescope').setup {
   },
 }
 
+-- terraform fmt
+require 'lspconfig'.terraformls.setup {}
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*.tf", "*.tfvars" },
+  callback = function()
+    vim.lsp.buf.format({ timeout_ms = 15000 })
+  end,
+})
+
+-- neo-tree
 vim.keymap.set('n', '<leader>e', '<Cmd>Neotree toggle<CR>')
 
 -- Enable telescope fzf native, if installed
